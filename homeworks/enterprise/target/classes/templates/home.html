@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <title>HomePage</title>
+  <link crossorigin="anonymous"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+        rel="stylesheet">
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+</head>
+<body>
+<div class="container">
+  <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+
+    <div class="accordion" id="userAccordion">
+      <div class="card">
+        <div class="card-header" id="headingUserOne">
+          <h2 class="mb-0">
+            <button aria-controls="collapseUserOne" aria-expanded="true" class="btn btn-link"
+                    data-target="#collapseUserOne" data-toggle="collapse"
+                    type="button">
+              Users
+            </button>
+          </h2>
+        </div>
+
+        <div aria-labelledby="headingUserOne" class="collapse show" data-parent="#userAccordion"
+             id="collapseUserOne">
+          <div class="card-body">
+            <table class="table">
+              <thead class="thead-dark">
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Surname</th>
+                <th scope="col">Login</th>
+                <th scope="col">#</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="user : ${users}">
+                <td th:text="${user.id}"/>
+                </td>
+                <td th:text="${user.name}"/>
+                </td>
+                <td th:text="${user.surname}"/>
+                </td>
+                <td th:text="${user.login}"/>
+                </td>
+                <td>
+                  <button class="btn btn-danger user_button" th:data-userid="${user.id}"
+                          type="button">Delete
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingUserTwo">
+          <h2 class="mb-0">
+            <button aria-controls="collapseUserTwo" aria-expanded="false"
+                    class="btn btn-link collapsed" data-target="#collapseUserTwo"
+                    data-toggle="collapse" type="button">
+              Add user
+            </button>
+          </h2>
+        </div>
+        <div aria-labelledby="headingUserTwo" class="collapse" data-parent="#userAccordion"
+             id="collapseUserTwo">
+          <div class="card-body">
+
+            <form method="post" th:action="@{/users/add}" th:object="${user}">
+              <div class="form-group">
+                <label>Name:</label>
+                <input class="form-control" th:field="*{name}" type="text">
+              </div>
+              <div class="form-group">
+                <label>Surname:</label>
+                <input class="form-control" th:field="*{surname}" type="text">
+              </div>
+              <div class="form-group">
+                <label>Login:</label>
+                <input class="form-control" th:field="*{login}" type="text">
+              </div>
+              <div class="form-group">
+                <label>Password:</label>
+                <input class="form-control" th:field="*{password}" type="text">
+              </div>
+              <div class="form-group">
+                <label>Gender:</label>
+                <select class="form-control" th:field="*{gender}">
+                  <option value="MALE">MALE</option>
+                  <option value="FEMALE">FEMALE</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Country:</label>
+                <input class="form-control" th:field="*{country}" type="text">
+              </div>
+              <div class="form-group">
+                <label>Birth date:</label>
+                <input class="form-control" th:field="*{birthDate}" type="date">
+              </div>
+              <div class="form-group">
+                <label>Weight:</label>
+                <input class="form-control" th:field="*{weight}" type="number">
+              </div>
+              <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="modal" id="success_modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Success</h5>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Selected object was successfully deleted!</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal" id="error_modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Error</h5>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Having problems deleting an object</p>
+      </div>
+    </div>
+  </div>
+</div>
+<script
+    crossorigin="anonymous"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('.user_button').on('click', function () {
+      let userId = $(this).data('userid')
+      let curTableRow = $(this).closest('tr');
+      $.ajax({
+        type: 'POST',
+        url: '/users/delete',
+        data: {
+          'userId': userId
+        },
+        success: function () {
+          $('#success_modal').modal('show')
+          curTableRow.remove();
+        },
+        error: function () {
+          $('#error_modal').modal('show')
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>
