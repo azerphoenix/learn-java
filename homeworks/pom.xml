@@ -13,6 +13,7 @@
   <packaging>pom</packaging>
   <modules>
     <module>final-project</module>
+    <module>enterprise</module>
   </modules>
 
   <properties>
