@@ -1,7 +1,5 @@
-package info.md7.java.lessons;
+package info.md7.java.lessons.patterns;
 
-import info.md7.java.lessons.multithreading.CallableImpl;
-import info.md7.java.lessons.multithreading.RunnableImpl;
 import info.md7.java.lessons.patterns.creational.abstractFactory.BackendDeveloper;
 import info.md7.java.lessons.patterns.creational.abstractFactory.FrontEndDeveloper;
 import info.md7.java.lessons.patterns.creational.abstractFactory.WebDesigner;
@@ -22,18 +20,25 @@ import info.md7.java.lessons.patterns.creational.singleton.LazySingleton;
 import info.md7.java.lessons.patterns.creational.singleton.Singleton;
 import info.md7.java.lessons.patterns.creational.singleton.multiton.Device;
 import info.md7.java.lessons.patterns.creational.singleton.multiton.OS;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import info.md7.java.lessons.patterns.structural.adapter.Database;
+import info.md7.java.lessons.patterns.structural.adapter.DatabaseAdapter;
+import info.md7.java.lessons.patterns.structural.bridge.Square;
+import info.md7.java.lessons.patterns.structural.bridge.VectorRenderer;
+import info.md7.java.lessons.patterns.structural.composite.Circle;
+import info.md7.java.lessons.patterns.structural.composite.Graphic;
+import info.md7.java.lessons.patterns.structural.composite.Triangle;
+import info.md7.java.lessons.patterns.structural.composite.another_example.DevTeam;
+import info.md7.java.lessons.patterns.structural.composite.another_example.PythonDeveloper;
+import info.md7.java.lessons.patterns.structural.composite.another_example.RubyDeveloper;
+import info.md7.java.lessons.patterns.structural.decorator.Developer;
+import info.md7.java.lessons.patterns.structural.decorator.SeniorPythonDeveloper;
+import info.md7.java.lessons.patterns.structural.facade.Workflow;
 import org.apache.commons.lang3.SerializationUtils;
 
 public class Main {
 
   public static void main(String[] args) {
-    prototype();
+    facade();
   }
 
   /**
@@ -59,6 +64,9 @@ public class Main {
 
   /**
    * Singleton
+   * Lazy initialized singleton
+   * Inner static singleton
+   * Enumerated singleton
    */
   public static void singleton() {
     System.out.println(Singleton.getInstance().toString());
@@ -76,6 +84,8 @@ public class Main {
 
   /**
    * Builder
+   * Fluent Builder
+   * Faceted builder
    */
   public static void builder() {
     User user = new UserBuilderImpl().setName("Hello").setSurname("World")
@@ -118,36 +128,55 @@ public class Main {
   }
 
   /**
-   * Multithreading via implementing Runnable
+   * Adapter pattern
    */
-  public static void multithreadingRunnable() {
-    ExecutorService executorService = Executors.newCachedThreadPool();
-    for (int i = 0; i <= 100; i++) {
-      executorService.execute(new RunnableImpl(i));
-    }
-    executorService.shutdown();
+  public static void adapter() {
+    Database database = new DatabaseAdapter();
+    System.out.println(database.update());
+    System.out.println(database.create());
   }
 
   /**
-   * Multithreading via implementing Callable
+   * Bridge pattern
    */
-  public static void multithreadingCallable() {
-    ExecutorService executorService = Executors.newCachedThreadPool();
-    List<Future<String>> futureList = new ArrayList<>();
-    for (int i = 0; i <= 100; i++) {
-      Future<String> a = executorService.submit(new CallableImpl());
-      futureList.add(a);
-    }
-    executorService.shutdown();
-    for (Future<String> future : futureList) {
-      try {
-        System.out.println(future.get());
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      } catch (ExecutionException e) {
-        e.printStackTrace();
-      }
-    }
+  public static void bridge() {
+    String s = new Square(new VectorRenderer()).toString();
+    System.out.println(s);
+  }
+
+  /**
+   * Composite
+   */
+  public static void composite() {
+    Graphic graphic = new Graphic();
+    graphic.addGraphic(new Triangle("#ff0000"));
+    graphic.addGraphic(new Circle("#cccccc"));
+    graphic.addGraphic(new Circle("#ffffff"));
+    graphic.addGraphic(new Triangle("#000000"));
+    System.out.println(graphic);
+
+    DevTeam devTeam = new DevTeam();
+    devTeam.addDeveloper(new PythonDeveloper());
+    devTeam.addDeveloper(new RubyDeveloper());
+    devTeam.createWebsite();
+  }
+
+  /**
+   * Decorator
+   */
+  public static void decorator() {
+    Developer developer = new info.md7.java.lessons.patterns.structural.decorator.PythonDeveloper();
+    System.out.println(developer.writeCode());
+    SeniorPythonDeveloper developer1 = new SeniorPythonDeveloper(developer);
+    System.out.println(developer1.writeCode());
+  }
+
+  /**
+   * Facade
+   */
+  public static void facade() {
+    Workflow workflow = new Workflow();
+    System.out.println(workflow.start());
   }
 
 
