@@ -1,15 +1,15 @@
 package info.md7.java.lessons.patterns;
 
-import info.md7.java.lessons.patterns.behaviorial.chain_of_responsibility.MessageCheckHandler;
-import info.md7.java.lessons.patterns.behaviorial.chain_of_responsibility.MessageHandler;
-import info.md7.java.lessons.patterns.behaviorial.chain_of_responsibility.MessagePrintHandler;
-import info.md7.java.lessons.patterns.behaviorial.chain_of_responsibility.MessageUppercaseHandler;
-import info.md7.java.lessons.patterns.behaviorial.command.example_1.Button;
-import info.md7.java.lessons.patterns.behaviorial.command.example_1.CopyCommand;
-import info.md7.java.lessons.patterns.behaviorial.command.example_1.PasteCommand;
-import info.md7.java.lessons.patterns.behaviorial.command.example_2.BankAccount;
-import info.md7.java.lessons.patterns.behaviorial.command.example_2.BankAccountCommand;
-import info.md7.java.lessons.patterns.behaviorial.command.example_2.BankAccountCommand.Operation;
+import info.md7.java.lessons.patterns.behavioral.chain_of_responsibility.MessageCheckHandler;
+import info.md7.java.lessons.patterns.behavioral.chain_of_responsibility.MessageHandler;
+import info.md7.java.lessons.patterns.behavioral.chain_of_responsibility.MessagePrintHandler;
+import info.md7.java.lessons.patterns.behavioral.chain_of_responsibility.MessageUppercaseHandler;
+import info.md7.java.lessons.patterns.behavioral.command.example_1.Button;
+import info.md7.java.lessons.patterns.behavioral.command.example_1.CopyCommand;
+import info.md7.java.lessons.patterns.behavioral.command.example_1.PasteCommand;
+import info.md7.java.lessons.patterns.behavioral.command.example_2.BankAccount;
+import info.md7.java.lessons.patterns.behavioral.command.example_2.BankAccountCommand;
+import info.md7.java.lessons.patterns.behavioral.command.example_2.BankAccountCommand.Operation;
 import info.md7.java.lessons.patterns.creational.abstractFactory.BackendDeveloper;
 import info.md7.java.lessons.patterns.creational.abstractFactory.FrontEndDeveloper;
 import info.md7.java.lessons.patterns.creational.abstractFactory.WebDesigner;

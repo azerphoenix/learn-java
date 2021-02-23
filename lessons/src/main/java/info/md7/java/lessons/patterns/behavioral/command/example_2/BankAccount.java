@@ -1,4 +1,4 @@
-package info.md7.java.lessons.patterns.behaviorial.command.example_2;
+package info.md7.java.lessons.patterns.behavioral.command.example_2;
 
 public class BankAccount {
 

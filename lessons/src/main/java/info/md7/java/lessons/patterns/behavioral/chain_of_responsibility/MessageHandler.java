@@ -1,4 +1,4 @@
-package info.md7.java.lessons.patterns.behaviorial.chain_of_responsibility;
+package info.md7.java.lessons.patterns.behavioral.chain_of_responsibility;
 
 public abstract class MessageHandler {
 
