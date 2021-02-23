@@ -1,9 +1,9 @@
 <hibernate-configuration xmlns="http://www.hibernate.org/xsd/orm/cfg">
   <session-factory>
-    <property name="connection.url">jdbc:mysql://159.69.154.43:3306/admin_cinema?useUnicode=yes&amp;characterEncoding=UTF-8</property>
+    <property name="connection.url">jdbc:mysql://localhost:3306/cinema_db?useUnicode=yes&amp;characterEncoding=UTF-8</property>
     <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-    <property name="connection.username">admin_cinema</property>
-    <property name="connection.password">sap555p5</property>
+    <property name="connection.username">cinema_db</property>
+    <property name="connection.password">12345</property>
     <property name="hbm2ddl.auto">validate</property>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
     <property name="show_sql">false</property>
