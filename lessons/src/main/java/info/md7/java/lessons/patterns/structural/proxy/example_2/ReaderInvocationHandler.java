@@ -1,6 +1,6 @@
-package info.md7.java.lessons.patterns.structural.proxy.another_example;
+package info.md7.java.lessons.patterns.structural.proxy.example_2;
 
-import info.md7.java.lessons.patterns.structural.proxy.CustomReader;
+import info.md7.java.lessons.patterns.structural.proxy.example_1.CustomReader;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 

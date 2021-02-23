@@ -1,4 +1,4 @@
-package info.md7.java.lessons.patterns.structural.proxy;
+package info.md7.java.lessons.patterns.structural.proxy.example_1;
 
 public class ProxyReader implements Reader {
 

@@ -10,6 +10,8 @@ import info.md7.java.lessons.patterns.behavioral.command.example_1.PasteCommand;
 import info.md7.java.lessons.patterns.behavioral.command.example_2.BankAccount;
 import info.md7.java.lessons.patterns.behavioral.command.example_2.BankAccountCommand;
 import info.md7.java.lessons.patterns.behavioral.command.example_2.BankAccountCommand.Operation;
+import info.md7.java.lessons.patterns.behavioral.interpreter.example_1.Expression;
+import info.md7.java.lessons.patterns.behavioral.interpreter.example_1.Runner;
 import info.md7.java.lessons.patterns.creational.abstractFactory.BackendDeveloper;
 import info.md7.java.lessons.patterns.creational.abstractFactory.FrontEndDeveloper;
 import info.md7.java.lessons.patterns.creational.abstractFactory.WebDesigner;
@@ -34,22 +36,22 @@ import info.md7.java.lessons.patterns.structural.adapter.Database;
 import info.md7.java.lessons.patterns.structural.adapter.DatabaseAdapter;
 import info.md7.java.lessons.patterns.structural.bridge.Square;
 import info.md7.java.lessons.patterns.structural.bridge.VectorRenderer;
-import info.md7.java.lessons.patterns.structural.composite.Circle;
-import info.md7.java.lessons.patterns.structural.composite.Graphic;
-import info.md7.java.lessons.patterns.structural.composite.Triangle;
-import info.md7.java.lessons.patterns.structural.composite.another_example.DevTeam;
-import info.md7.java.lessons.patterns.structural.composite.another_example.PythonDeveloper;
-import info.md7.java.lessons.patterns.structural.composite.another_example.RubyDeveloper;
-import info.md7.java.lessons.patterns.structural.decorator.Developer;
-import info.md7.java.lessons.patterns.structural.decorator.SeniorPythonDeveloper;
-import info.md7.java.lessons.patterns.structural.decorator.another_example.Dragon;
+import info.md7.java.lessons.patterns.structural.composite.example_1.Circle;
+import info.md7.java.lessons.patterns.structural.composite.example_1.Graphic;
+import info.md7.java.lessons.patterns.structural.composite.example_1.Triangle;
+import info.md7.java.lessons.patterns.structural.composite.example_2.DevTeam;
+import info.md7.java.lessons.patterns.structural.composite.example_2.PythonDeveloper;
+import info.md7.java.lessons.patterns.structural.composite.example_2.RubyDeveloper;
+import info.md7.java.lessons.patterns.structural.decorator.example_1.Developer;
+import info.md7.java.lessons.patterns.structural.decorator.example_1.SeniorPythonDeveloper;
+import info.md7.java.lessons.patterns.structural.decorator.example_2.Dragon;
 import info.md7.java.lessons.patterns.structural.facade.Workflow;
 import info.md7.java.lessons.patterns.structural.flyweight.Vehicle;
 import info.md7.java.lessons.patterns.structural.flyweight.VehicleFactory;
-import info.md7.java.lessons.patterns.structural.proxy.CustomReader;
-import info.md7.java.lessons.patterns.structural.proxy.ProxyReader;
-import info.md7.java.lessons.patterns.structural.proxy.Reader;
-import info.md7.java.lessons.patterns.structural.proxy.another_example.ReaderInvocationHandler;
+import info.md7.java.lessons.patterns.structural.proxy.example_1.CustomReader;
+import info.md7.java.lessons.patterns.structural.proxy.example_1.ProxyReader;
+import info.md7.java.lessons.patterns.structural.proxy.example_1.Reader;
+import info.md7.java.lessons.patterns.structural.proxy.example_2.ReaderInvocationHandler;
 import java.awt.Color;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
@@ -59,7 +61,7 @@ import org.apache.commons.lang3.SerializationUtils;
 public class Main {
 
   public static void main(String[] args) {
-    command();
+    interpreter();
   }
 
   /**
@@ -186,7 +188,7 @@ public class Main {
    * Decorator
    */
   public static void decorator() {
-    Developer developer = new info.md7.java.lessons.patterns.structural.decorator.PythonDeveloper();
+    Developer developer = new info.md7.java.lessons.patterns.structural.decorator.example_1.PythonDeveloper();
     System.out.println(developer.writeCode());
     SeniorPythonDeveloper developer1 = new SeniorPythonDeveloper(developer);
     System.out.println(developer1.writeCode());
@@ -255,5 +257,12 @@ public class Main {
     copyButton.pressButton(new CopyCommand());
     Button pasteButton = new Button();
     pasteButton.pressButton(new PasteCommand());
+  }
+
+  public static void interpreter() {
+    Expression isJavaDeveloper = Runner.getJavaExpression();
+    Expression isJavaEEDeveloper = Runner.getJavaEEExpression();
+    System.out.println(isJavaDeveloper.interpret("Java Core"));
+    System.out.println(isJavaEEDeveloper.interpret("Java Spring"));
   }
 }

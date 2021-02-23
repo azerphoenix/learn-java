@@ -1,4 +1,4 @@
-package info.md7.java.lessons.patterns.structural.composite.another_example;
+package info.md7.java.lessons.patterns.structural.composite.example_2;
 
 import java.util.ArrayList;
 import java.util.List;

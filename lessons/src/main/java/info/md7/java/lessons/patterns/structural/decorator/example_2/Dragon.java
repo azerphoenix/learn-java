@@ -1,4 +1,4 @@
-package info.md7.java.lessons.patterns.structural.decorator.another_example;
+package info.md7.java.lessons.patterns.structural.decorator.example_2;
 
 public class Dragon {
 

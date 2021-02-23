@@ -1,4 +1,4 @@
-package info.md7.java.lessons.patterns.structural.composite.another_example;
+package info.md7.java.lessons.patterns.structural.composite.example_2;
 
 public class RubyDeveloper implements Developer {
 
