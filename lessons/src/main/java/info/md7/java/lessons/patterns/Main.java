@@ -1,5 +1,15 @@
 package info.md7.java.lessons.patterns;
 
+import info.md7.java.lessons.patterns.behaviorial.chain_of_responsibility.MessageCheckHandler;
+import info.md7.java.lessons.patterns.behaviorial.chain_of_responsibility.MessageHandler;
+import info.md7.java.lessons.patterns.behaviorial.chain_of_responsibility.MessagePrintHandler;
+import info.md7.java.lessons.patterns.behaviorial.chain_of_responsibility.MessageUppercaseHandler;
+import info.md7.java.lessons.patterns.behaviorial.command.example_1.Button;
+import info.md7.java.lessons.patterns.behaviorial.command.example_1.CopyCommand;
+import info.md7.java.lessons.patterns.behaviorial.command.example_1.PasteCommand;
+import info.md7.java.lessons.patterns.behaviorial.command.example_2.BankAccount;
+import info.md7.java.lessons.patterns.behaviorial.command.example_2.BankAccountCommand;
+import info.md7.java.lessons.patterns.behaviorial.command.example_2.BankAccountCommand.Operation;
 import info.md7.java.lessons.patterns.creational.abstractFactory.BackendDeveloper;
 import info.md7.java.lessons.patterns.creational.abstractFactory.FrontEndDeveloper;
 import info.md7.java.lessons.patterns.creational.abstractFactory.WebDesigner;
@@ -32,13 +42,24 @@ import info.md7.java.lessons.patterns.structural.composite.another_example.Pytho
 import info.md7.java.lessons.patterns.structural.composite.another_example.RubyDeveloper;
 import info.md7.java.lessons.patterns.structural.decorator.Developer;
 import info.md7.java.lessons.patterns.structural.decorator.SeniorPythonDeveloper;
+import info.md7.java.lessons.patterns.structural.decorator.another_example.Dragon;
 import info.md7.java.lessons.patterns.structural.facade.Workflow;
+import info.md7.java.lessons.patterns.structural.flyweight.Vehicle;
+import info.md7.java.lessons.patterns.structural.flyweight.VehicleFactory;
+import info.md7.java.lessons.patterns.structural.proxy.CustomReader;
+import info.md7.java.lessons.patterns.structural.proxy.ProxyReader;
+import info.md7.java.lessons.patterns.structural.proxy.Reader;
+import info.md7.java.lessons.patterns.structural.proxy.another_example.ReaderInvocationHandler;
+import java.awt.Color;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Proxy;
+import java.util.List;
 import org.apache.commons.lang3.SerializationUtils;
 
 public class Main {
 
   public static void main(String[] args) {
-    facade();
+    command();
   }
 
   /**
@@ -169,6 +190,10 @@ public class Main {
     System.out.println(developer.writeCode());
     SeniorPythonDeveloper developer1 = new SeniorPythonDeveloper(developer);
     System.out.println(developer1.writeCode());
+
+    Dragon dragon = new Dragon();
+    dragon.crawl();
+    dragon.fly();
   }
 
   /**
@@ -179,5 +204,56 @@ public class Main {
     System.out.println(workflow.start());
   }
 
+  /**
+   * Flyweight
+   */
+  public static void flyweight() {
+    Vehicle vehicle = VehicleFactory.createVehicle(Color.BLACK);
+    Vehicle vehicle1 = VehicleFactory.createVehicle(Color.BLACK);
+    System.out.println(vehicle + " " + vehicle1);
+  }
 
+  /**
+   * Proxy
+   */
+  public static void proxy() {
+    String a = new CustomReader().read("Hello World");
+    System.out.println(a);
+    new ProxyReader().read("John Smith");
+
+    // Dynamic proxy via InvocationHandler
+    InvocationHandler readerInvocationHandler = new ReaderInvocationHandler();
+    Object proxyInstance = Proxy.newProxyInstance(Main.class.getClassLoader(), new Class[]{Reader.class},
+        readerInvocationHandler);
+    ((Reader) proxyInstance).read("Brave new world");
+  }
+
+  /**
+   * Chain of responsibility
+   */
+  public static void chainOfResponsibility() {
+    MessageHandler messageHandler = new MessageCheckHandler(new MessageUppercaseHandler(new MessagePrintHandler(null)));
+    messageHandler.handle("Abra Kadabra");
+  }
+
+  /**
+   * Command
+   */
+  public static void command() {
+    BankAccount bankAccount = new BankAccount();
+    bankAccount.deposit(10000);
+    List<BankAccountCommand> bankAccountCommands = List.of(
+        new BankAccountCommand(bankAccount, Operation.DEPOSIT, 100),
+        new BankAccountCommand(bankAccount, Operation.DEPOSIT, 200),
+        new BankAccountCommand(bankAccount, Operation.WITHDRAW, 400),
+        new BankAccountCommand(bankAccount, Operation.DEPOSIT, 500),
+        new BankAccountCommand(bankAccount, Operation.WITHDRAW, 800)
+    );
+    bankAccountCommands.forEach(BankAccountCommand::call);
+
+    Button copyButton = new Button();
+    copyButton.pressButton(new CopyCommand());
+    Button pasteButton = new Button();
+    pasteButton.pressButton(new PasteCommand());
+  }
 }
