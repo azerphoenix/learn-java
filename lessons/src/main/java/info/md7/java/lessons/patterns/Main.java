@@ -12,6 +12,8 @@ import info.md7.java.lessons.patterns.behavioral.command.example_2.BankAccountCo
 import info.md7.java.lessons.patterns.behavioral.command.example_2.BankAccountCommand.Operation;
 import info.md7.java.lessons.patterns.behavioral.interpreter.example_1.Expression;
 import info.md7.java.lessons.patterns.behavioral.interpreter.example_1.Runner;
+import info.md7.java.lessons.patterns.behavioral.iterator.example_1.Iterator;
+import info.md7.java.lessons.patterns.behavioral.iterator.example_2.Employee;
 import info.md7.java.lessons.patterns.creational.abstractFactory.BackendDeveloper;
 import info.md7.java.lessons.patterns.creational.abstractFactory.FrontEndDeveloper;
 import info.md7.java.lessons.patterns.creational.abstractFactory.WebDesigner;
@@ -61,7 +63,7 @@ import org.apache.commons.lang3.SerializationUtils;
 public class Main {
 
   public static void main(String[] args) {
-    interpreter();
+    iterator();
   }
 
   /**
@@ -259,10 +261,31 @@ public class Main {
     pasteButton.pressButton(new PasteCommand());
   }
 
+  /**
+   * Interpreter
+   */
   public static void interpreter() {
     Expression isJavaDeveloper = Runner.getJavaExpression();
     Expression isJavaEEDeveloper = Runner.getJavaEEExpression();
     System.out.println(isJavaDeveloper.interpret("Java Core"));
     System.out.println(isJavaEEDeveloper.interpret("Java Spring"));
+  }
+
+  /**
+   * Iterator
+   */
+  public static void iterator() {
+    String[] skills = {"Java", "Python", "WordPress", "Django", "Spring"};
+    info.md7.java.lessons.patterns.behavioral.iterator.example_1.User user = new info.md7.java.lessons.patterns.behavioral.iterator.example_1.User(skills);
+    Iterator iterator = user.getIterator();
+    while (iterator.hasNext()) {
+      System.out.println(iterator.next().toString());
+    }
+
+    List<String> employeeSkills = List.of(skills);
+    Employee employee = new Employee(employeeSkills);
+    for (String skill : employee) {
+      System.out.println(skill);
+    }
   }
 }
