@@ -14,6 +14,15 @@ import info.md7.java.lessons.patterns.behavioral.interpreter.example_1.Expressio
 import info.md7.java.lessons.patterns.behavioral.interpreter.example_1.Runner;
 import info.md7.java.lessons.patterns.behavioral.iterator.example_1.Iterator;
 import info.md7.java.lessons.patterns.behavioral.iterator.example_2.Employee;
+import info.md7.java.lessons.patterns.behavioral.mediator.ChatAdmin;
+import info.md7.java.lessons.patterns.behavioral.mediator.TextChat;
+import info.md7.java.lessons.patterns.behavioral.memento.example_1.Project;
+import info.md7.java.lessons.patterns.behavioral.memento.example_1.Repository;
+import info.md7.java.lessons.patterns.behavioral.memento.example_2.Originator;
+import info.md7.java.lessons.patterns.behavioral.null_object.Log;
+import info.md7.java.lessons.patterns.behavioral.null_object.NullLog;
+import info.md7.java.lessons.patterns.behavioral.null_object.UserService;
+import info.md7.java.lessons.patterns.behavioral.null_object.dynamic_null_object.DynamicNullObject;
 import info.md7.java.lessons.patterns.creational.abstractFactory.BackendDeveloper;
 import info.md7.java.lessons.patterns.creational.abstractFactory.FrontEndDeveloper;
 import info.md7.java.lessons.patterns.creational.abstractFactory.WebDesigner;
@@ -63,7 +72,7 @@ import org.apache.commons.lang3.SerializationUtils;
 public class Main {
 
   public static void main(String[] args) {
-    iterator();
+    nullObject();
   }
 
   /**
@@ -287,5 +296,56 @@ public class Main {
     for (String skill : employee) {
       System.out.println(skill);
     }
+  }
+
+  /**
+   * Mediator
+   */
+  public static void mediator() {
+    TextChat chat = new TextChat();
+    ChatAdmin admin = new ChatAdmin(chat, "Administrator");
+    info.md7.java.lessons.patterns.behavioral.mediator.Employee user1 = new info.md7.java.lessons.patterns.behavioral.mediator.Employee(chat, "User 1");
+    info.md7.java.lessons.patterns.behavioral.mediator.Employee user2 = new info.md7.java.lessons.patterns.behavioral.mediator.Employee(chat, "User 2");
+    chat.setAdmin(admin);
+    chat.addEmployeeToChat(user1);
+    chat.addEmployeeToChat(user2);
+    System.out.println(user1.sendMessage("Hello!"));
+    System.out.println(user2.sendMessage("Hi!"));
+  }
+
+  /**
+   * Memento
+   */
+  public static void memento(){
+    Project project = new Project();
+    Repository repository = new Repository();
+    project.setVersion("1.0");
+    repository.setSave(project.save());
+    project.setVersion("2.0");
+    System.out.println(project.toString());
+    project.load(repository.getSave());
+    System.out.println(project);
+
+    Originator originator = new Originator();
+    originator.setState("Hello World");
+    Originator.Memento memento = originator.saveState();
+    System.out.println(originator.getState());
+    originator.setState("Some other text");
+    System.out.println(originator.getState());
+    originator.restoreState(memento);
+    System.out.println(originator.getState());
+  }
+
+  /**
+   * Null Object
+   */
+  public static void nullObject() {
+    NullLog nullLog = new NullLog();
+    UserService userService = new UserService(nullLog);
+    userService.getUserInfo("admin");
+
+    Log log = DynamicNullObject.noOp(Log.class);
+    UserService userService1 = new UserService(log);
+    userService1.getUserInfo("admin");
   }
 }
