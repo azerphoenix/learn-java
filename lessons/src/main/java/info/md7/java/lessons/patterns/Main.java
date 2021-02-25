@@ -23,6 +23,30 @@ import info.md7.java.lessons.patterns.behavioral.null_object.Log;
 import info.md7.java.lessons.patterns.behavioral.null_object.NullLog;
 import info.md7.java.lessons.patterns.behavioral.null_object.UserService;
 import info.md7.java.lessons.patterns.behavioral.null_object.dynamic_null_object.DynamicNullObject;
+import info.md7.java.lessons.patterns.behavioral.observer.example_1.JobSite;
+import info.md7.java.lessons.patterns.behavioral.observer.example_1.Observer;
+import info.md7.java.lessons.patterns.behavioral.observer.example_1.Subscriber;
+import info.md7.java.lessons.patterns.behavioral.observer.example_2.Subject;
+import info.md7.java.lessons.patterns.behavioral.state.example_1.Activity;
+import info.md7.java.lessons.patterns.behavioral.state.example_1.Reading;
+import info.md7.java.lessons.patterns.behavioral.state.example_2.LightSwitch;
+import info.md7.java.lessons.patterns.behavioral.strategy.example_1.Coding;
+import info.md7.java.lessons.patterns.behavioral.strategy.example_1.Sleeping;
+import info.md7.java.lessons.patterns.behavioral.strategy.example_2.Car;
+import info.md7.java.lessons.patterns.behavioral.strategy.example_2.FlyCar;
+import info.md7.java.lessons.patterns.behavioral.strategy.example_2.Mercedes;
+import info.md7.java.lessons.patterns.behavioral.strategy.example_3.HtmlListStrategy;
+import info.md7.java.lessons.patterns.behavioral.strategy.example_3.MarkdownListStrategy;
+import info.md7.java.lessons.patterns.behavioral.strategy.example_3.TextProcessor;
+import info.md7.java.lessons.patterns.behavioral.template_method.example_1.HomePage;
+import info.md7.java.lessons.patterns.behavioral.template_method.example_1.NewsPage;
+import info.md7.java.lessons.patterns.behavioral.template_method.example_1.WebsiteTemplate;
+import info.md7.java.lessons.patterns.behavioral.visitor.example_1.JuniorDeveloper;
+import info.md7.java.lessons.patterns.behavioral.visitor.example_1.SeniorDeveloper;
+import info.md7.java.lessons.patterns.behavioral.visitor.example_2.Animal;
+import info.md7.java.lessons.patterns.behavioral.visitor.example_2.Dog;
+import info.md7.java.lessons.patterns.behavioral.visitor.example_2.EatVisitor;
+import info.md7.java.lessons.patterns.behavioral.visitor.example_2.SoundVIsitor;
 import info.md7.java.lessons.patterns.creational.abstractFactory.BackendDeveloper;
 import info.md7.java.lessons.patterns.creational.abstractFactory.FrontEndDeveloper;
 import info.md7.java.lessons.patterns.creational.abstractFactory.WebDesigner;
@@ -72,7 +96,7 @@ import org.apache.commons.lang3.SerializationUtils;
 public class Main {
 
   public static void main(String[] args) {
-    nullObject();
+    visitor();
   }
 
   /**
@@ -348,4 +372,95 @@ public class Main {
     UserService userService1 = new UserService(log);
     userService1.getUserInfo("admin");
   }
+
+  /**
+   * Observer
+   */
+  public static void observer() {
+    JobSite jobSite = new JobSite();
+    jobSite.addVacancy("Java Developer");
+    jobSite.addVacancy("Python Developer");
+    Observer subscriber1 = new Subscriber("Subscriber 1");
+    Observer subscriber2 = new Subscriber("Subscriber 2");
+    Observer subscriber3 = new Subscriber("Subscriber 3");
+    jobSite.addObserver(subscriber1);
+    jobSite.addObserver(subscriber2);
+    jobSite.addObserver(subscriber3);
+    jobSite.addVacancy("Cpp Developer");
+    jobSite.removeVacancy("Java Developer");
+
+    Subject subject = new Subject();
+    subject.addObserver(new info.md7.java.lessons.patterns.behavioral.observer.example_2.Subscriber());
+    subject.setChanged();
+    subject.notifyObservers();
+  }
+
+  /**
+   * State
+   */
+  public static void state() {
+    Activity activity = new Reading();
+    info.md7.java.lessons.patterns.behavioral.state.example_1.Developer developer = new info.md7.java.lessons.patterns.behavioral.state.example_1.Developer();
+    developer.setActivity(activity);
+    for (int i = 0; i < 10; i++) {
+      developer.doSomething();
+      developer.changeActivity();
+    }
+
+    LightSwitch lightSwitch = new LightSwitch();
+    lightSwitch.on();
+    lightSwitch.off();
+    lightSwitch.off();
+  }
+
+  /**
+   * Strategy
+   */
+  public static void strategy() {
+    // Example 1
+    info.md7.java.lessons.patterns.behavioral.strategy.example_1.Developer developer = new info.md7.java.lessons.patterns.behavioral.strategy.example_1.Developer();
+    developer.setActivity(new Sleeping());
+    developer.executeActivity();
+    developer.setActivity(new Coding());
+    developer.executeActivity();
+    // Example 2
+    Car car = new Mercedes(new FlyCar());
+    car.fly();
+    // Example 3
+    TextProcessor<MarkdownListStrategy> tp = new TextProcessor<>(
+        MarkdownListStrategy::new);
+    tp.appendList(List.of("liberte", "egalite", "fraternite"));
+    System.out.println(tp);
+    TextProcessor<HtmlListStrategy> tp2 = new TextProcessor<>(HtmlListStrategy::new);
+    tp2.appendList(List.of("inheritance", "encapsulation", "polymorphism"));
+    System.out.println(tp2);
+  }
+
+  /**
+   * Template Method
+   */
+  public static void templateMethod() {
+    WebsiteTemplate welcomePage = new HomePage();
+    welcomePage.showPage();
+    System.out.println(System.lineSeparator());
+    WebsiteTemplate newsPage = new NewsPage();
+    newsPage.showPage();
+  }
+
+  /**
+   * Visitor
+   */
+  public static void visitor() {
+    info.md7.java.lessons.patterns.behavioral.visitor.example_1.Project project = new info.md7.java.lessons.patterns.behavioral.visitor.example_1.Project();
+    info.md7.java.lessons.patterns.behavioral.visitor.example_1.Developer junior = new JuniorDeveloper();
+    info.md7.java.lessons.patterns.behavioral.visitor.example_1.Developer senior = new SeniorDeveloper();
+    project.beWritten(junior);
+    System.out.println(System.lineSeparator());
+    project.beWritten(senior);
+
+    Animal animal = new Dog();
+    animal.accept(new SoundVIsitor());
+    animal.accept(new EatVisitor());
+  }
+
 }
