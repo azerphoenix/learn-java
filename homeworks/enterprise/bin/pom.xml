@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>homeworks</artifactId>
+    <groupId>info.md7</groupId>
+    <version>1.0</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>enterprise</artifactId>
+  <packaging>war</packaging>
+
+  <properties>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+    <log4j>1.2.17</log4j>
+    <spring.version>5.2.9.RELEASE</spring.version>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>11</source>
+          <target>11</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.3.1</version>
+        <configuration>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
+
+      <!--<plugin>
+        <groupId>org.flywaydb</groupId>
+        <artifactId>flyway-maven-plugin</artifactId>
+        <version>4.0.3</version>
+      </plugin>-->
+    </plugins>
+  </build>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.11</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.2.16</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.14</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.7.0</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <artifactId>log4j</artifactId>
+      <groupId>log4j</groupId>
+      <version>${log4j}</version>
+    </dependency>
+    <dependency>
+      <artifactId>slf4j-log4j12</artifactId>
+      <groupId>org.slf4j</groupId>
+      <version>1.7.28</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>spring-core</artifactId>
+      <groupId>org.springframework</groupId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>spring-context</artifactId>
+      <groupId>org.springframework</groupId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>spring-web</artifactId>
+      <groupId>org.springframework</groupId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>spring-webmvc</artifactId>
+      <groupId>org.springframework</groupId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>thymeleaf-spring5</artifactId>
+      <groupId>org.thymeleaf</groupId>
+      <version>3.0.11.RELEASE</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>javax.inject</artifactId>
+      <groupId>javax.inject</groupId>
+      <version>1</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>spring-jdbc</artifactId>
+      <groupId>org.springframework</groupId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>HikariCP</artifactId>
+      <groupId>com.zaxxer</groupId>
+      <version>3.4.5</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>spring-aop</artifactId>
+      <groupId>org.springframework</groupId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>aspectjrt</artifactId>
+      <groupId>org.aspectj</groupId>
+      <version>1.9.5</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>aspectjweaver</artifactId>
+      <groupId>org.aspectj</groupId>
+      <version>1.9.5</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>javax.servlet-api</artifactId>
+      <groupId>javax.servlet</groupId>
+      <scope>provided</scope>
+      <version>4.0.1</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>modelmapper</artifactId>
+      <groupId>org.modelmapper</groupId>
+      <version>2.3.0</version>
+    </dependency>
+
+  </dependencies>
+
+
+</project>
