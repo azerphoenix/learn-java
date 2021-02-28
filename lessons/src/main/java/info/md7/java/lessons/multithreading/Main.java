@@ -3,6 +3,8 @@ package info.md7.java.lessons.multithreading;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -12,8 +14,9 @@ import java.util.concurrent.TimeUnit;
 public class Main {
 
   public static void main(String[] args) {
-    fixedThreadPoolDemo();
+    interruptedThread();
   }
+
 
   /** Multithreading via extending Thread */
   public static void multithreadingThread() {
@@ -75,6 +78,36 @@ public class Main {
         multipleLockDemo.getFirstList().size(), multipleLockDemo.getSecondList().size());
   }
 
+  /**
+   * Example of using condition
+   */
+  public static void conditionDemo() {
+    ConditionDemo conditionDemo = new ConditionDemo();
+    Thread t1 = new Thread(() -> {
+      try {
+        conditionDemo.firstMethod();
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    });
+    Thread t2 = new Thread(() -> {
+      try {
+        conditionDemo.secondMethod();
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    });
+    t1.start();
+    t2.start();
+    try {
+      t1.join();
+      t2.join();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    conditionDemo.finished();
+  }
+
   /** Multithreading via implementing Runnable ExecutorService */
   public static void multithreadingSimpleRunnable() {
     for (int i = 0; i <= 50; i++) {
@@ -113,6 +146,20 @@ public class Main {
   }
 
   /**
+   * Callable example without returning anything
+   */
+  public static void callableWhichReturnsNothing() {
+    ExecutorService executorService = Executors.newCachedThreadPool();
+    Future<?> nothing =
+        executorService.submit(
+            (Callable<Void>) () -> {
+              System.out.println("Simple Callable example which returns nothing");
+              return null;
+            });
+    executorService.shutdown();
+  }
+
+  /**
    * Thread Pools
    * Fixed Thread Pool
    */
@@ -132,4 +179,79 @@ public class Main {
     }
     System.out.printf("First service run time: %s %s", result, System.lineSeparator());
   }
+
+  /**
+   * CountDownLatch demo
+   */
+  public static void countDownLatchDemo() {
+    CountDownLatch latch = new CountDownLatch(3);
+    ExecutorService executorService = Executors.newFixedThreadPool(3);
+    for (int i = 0; i < 3; i++) {
+      executorService.submit(new CountDownLatchDemo(latch));
+    }
+    try {
+      latch.await();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    System.out.println("Completed");
+    executorService.shutdown();
+  }
+
+  /**
+   * Wait and Notify demo
+   */
+  private static void waitAndNotifyDemo() {
+    WaitAndNotifyDemo waitAndNotifyDemo = new WaitAndNotifyDemo();
+    Thread t1 = new Thread(waitAndNotifyDemo::producer);
+    Thread t2 = new Thread(waitAndNotifyDemo::consumer);
+    t1.start();
+    t2.start();
+    try {
+      t1.join();
+      t2.join();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Semaphore demo
+   */
+  public static void semaphoreDemo() {
+    ExecutorService executorService = Executors.newCachedThreadPool();
+    for (int i = 0; i < 100; i++) {
+      executorService.submit(() -> Connection.getInstance().connect());
+    }
+    executorService.shutdown();
+  }
+
+  /**
+   * Interrupted thread demo
+   */
+  public static void interruptedThread() {
+    System.out.println("Starting thread");
+    Thread thread = new Thread(() -> {
+      for (int i = 0; i <= 1E15; i++) {
+        if (Thread.currentThread().isInterrupted()) {
+          System.out.println("Thread is interrupted");
+          break;
+        }
+      }
+    });
+    thread.start();
+    try {
+      Thread.sleep(500);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    thread.interrupt();
+    try {
+      thread.join();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    System.out.println("Stopping");
+  }
+
 }

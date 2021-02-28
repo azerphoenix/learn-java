@@ -14,8 +14,6 @@ public class ReentrantLockDemo extends Thread {
 
   private Lock lock1 = new ReentrantLock();
 
-  private Lock lock2 = new ReentrantLock();
-
   public void firstMethod() {
     lock1.lock();
     try {
@@ -29,14 +27,14 @@ public class ReentrantLockDemo extends Thread {
   }
 
   public void secondMethod() {
-    lock2.lock();
+    lock1.lock();
     try {
       Thread.sleep(1);
       secondList.add(UUID.randomUUID().toString());
     } catch (InterruptedException e) {
       e.printStackTrace();
     } finally{
-      lock2.unlock();
+      lock1.unlock();
     }
   }
 
