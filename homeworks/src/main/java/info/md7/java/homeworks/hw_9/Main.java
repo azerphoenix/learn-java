@@ -1,14 +1,9 @@
 package info.md7.java.homeworks.hw_9;
 
-
-import info.md7.java.homeworks.hw_9.enums.CarBrand;
-import info.md7.java.homeworks.hw_9.pojo.Car;
-import info.md7.java.homeworks.hw_9.store.Consumer;
-import info.md7.java.homeworks.hw_9.store.Producer;
-import info.md7.java.homeworks.hw_9.store.Store;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class Main {
 

@@ -14,8 +14,9 @@ import java.util.concurrent.TimeUnit;
 public class Main {
 
   public static void main(String[] args) {
-    interruptedThread();
+
   }
+
 
 
   /** Multithreading via extending Thread */
