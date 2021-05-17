@@ -1,10 +1,13 @@
 package info.md7.java.homeworks.hw_8;
 
-import OrkhanHasanli_Task8.exceptions.DeficiencyAmountOfMoneyException;
-import OrkhanHasanli_Task8.exceptions.ProductNotFoundException;
-import OrkhanHasanli_Task8.services.CustomerService;
-import OrkhanHasanli_Task8.services.MenuService;
-import OrkhanHasanli_Task8.services.ProductService;
+
+
+import info.md7.java.homeworks.hw_8.exceptions.DeficiencyAmountOfMoneyException;
+import info.md7.java.homeworks.hw_8.exceptions.ProductNotFoundException;
+import info.md7.java.homeworks.hw_8.services.CustomerService;
+import info.md7.java.homeworks.hw_8.services.MenuService;
+import info.md7.java.homeworks.hw_8.services.ProductService;
+
 import java.io.IOException;
 
 public class Main {

@@ -12,6 +12,8 @@
   <modules>
     <module>homeworks</module>
     <module>lessons</module>
+    <module>reactor</module>
+      <module>hackerrank</module>
   </modules>
 
   <properties>
