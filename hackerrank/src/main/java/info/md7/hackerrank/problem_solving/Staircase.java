@@ -1,4 +1,4 @@
-package info.md7.hackerrank;
+package info.md7.hackerrank.problem_solving;
 
 // https://www.hackerrank.com/challenges/staircase/problem
 public class Staircase {

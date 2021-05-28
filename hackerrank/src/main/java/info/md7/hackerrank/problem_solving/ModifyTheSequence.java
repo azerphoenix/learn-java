@@ -1,4 +1,4 @@
-package info.md7.hackerrank;
+package info.md7.hackerrank.problem_solving;
 
 import java.util.Iterator;
 import java.util.List;
